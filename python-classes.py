@@ -16,13 +16,28 @@ nums = [1, 2, 3, 8, 2, 4, 0]
 
 # dog class
 class Dog():
+    # class attribute - creates an id for each instance of Dog()
+    next_id = 1
+    #instance attributes
     def __init__(self, name, age = 0):
         self.name = name
         self.age = age
+        # class attribute access next_id
+        self.id = Dog.next_id
+        # when init is run/ id will increment by 1
+        Dog.next_id += 1 
     #overwrite str method
     def __str__(self):
-        return f'My dog is {self.name} and is {self.age} years old'
+        return f'My dog is {self.name} and is {self.age} years old with id# of: {self.id}'
     
+    # class methods
+    #decorator label tells Dog class only called on Dog
+    # use class attribute next_id
+    @classmethod
+    def get_total_dogs(cls):
+        return cls.next_id - 1
+        
+    # instance methods
     def bark(self):
         print(f'{self.name} barked woof woof')
 
@@ -35,6 +50,12 @@ missy = Dog('Missy', 5)
 print(missy)
 print(missy.name)
 missy.bark()
+# check id increment with new instance
+klondike = Dog('Klondike', 5)
+print(klondike)
+
+# check total dogs
+print(f'Total Dogs = {Dog.get_total_dogs()}')
 
 class Vehicle():
     def __init__(self, vin, make, model, running = False):
@@ -64,3 +85,4 @@ car.start()
 print(car)
 car.stop()
 print(car)
+
